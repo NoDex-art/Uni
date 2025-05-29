@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Повертає індекс (1..n) останнього локального максимуму або 0, якщо таких немає
+int main() {
+    int n;
+    cout << "Введіть кількість елементів n (3..50): ";
+    cin >> n;
+    if (n < 3 || n > 50) {
+        cerr << "Невірний розмір масиву\n";
+        return 1;
+    }
+    vector<double> a(n);
+    cout << "Введіть " << n << " елементів масиву:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    int lastPos = 0;
+    // перевіряємо від i=1 до i=n-2 (0-базована нумерація)
+    for (int i = 1; i < n-1; i++) {
+        if (a[i] > a[i-1] && a[i] > a[i+1]) {
+            lastPos = i + 1;  // +1 для 1-базованої відповіді
+        }
+    }
+
+    if (lastPos != 0)
+        cout << "Номер останнього локального максимуму: " << lastPos << "\n";
+    else
+        cout << "Локальні максимуми відсутні (0)\n";
+
+    return 0;
+}
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    int n;
+    cout << "Введіть кількість елементів n (1..50): ";
+    cin >> n;
+    if (n < 1 || n > 50) {
+        cerr << "Невірний розмір масиву\n";
+        return 1;
+    }
+    vector<double> a(n);
+    cout << "Введіть " << n << " елементів масиву:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    int K;
+    cout << "Введіть K (1 ≤ K ≤ " << n << "): ";
+    cin >> K;
+    if (K < 1 || K > n) {
+        cerr << "Невірний індекс K\n";
+        return 1;
+    }
+
+    // видаляємо елемент K-1
+    a.erase(a.begin() + (K - 1));
+    n--;
+
+    cout << "Масив після видалення елемента з номером " << K << " (новий розмір " << n << "):\n";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << (i+1 < n ? " " : "\n");
+    }
+
+    return 0;
+}
